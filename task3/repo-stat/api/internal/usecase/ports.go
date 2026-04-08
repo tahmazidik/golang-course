@@ -6,5 +6,13 @@ import (
 )
 
 type SubscriberPinger interface {
-	Ping(ctx context.Context) (domain.PingStatus, error)
+	Ping(ctx context.Context) domain.PingStatus
+}
+
+type ProcessorPinger interface {
+	Ping(ctx context.Context) domain.PingStatus
+}
+
+type ProcessorRepositoryInfoGetter interface {
+	GetRepositoryInfo(ctx context.Context, url string) (*domain.RepositoryInfo, error)
 }
