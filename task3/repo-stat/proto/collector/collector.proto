@@ -7,7 +7,9 @@ import "google/protobuf/timestamp.proto";
 option go_package = "yadro.com/course/proto/gen/go/collector/v1;collectorv1";
 
 service Collector {
-  rpc GetRepositoryInfo(GetRepositoryInfoRequest) returns (GetRepositoryInfoResponse);
+  rpc GetRepositoryInfo(
+    GetRepositoryInfoRequest
+  ) returns (GetRepositoryInfoResponse);
 }
 
 message GetRepositoryInfoRequest {

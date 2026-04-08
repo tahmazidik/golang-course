@@ -9,7 +9,9 @@ option go_package = "yadro.com/course/proto/gen/go/processor/v1;processorv1";
 service Processor {
   rpc Ping(PingRequest) returns (PingResponse);
 
-  rpc GetRepositoryInfo(GetRepositoryInfoRequest) returns (GetRepositoryInfoResponse);
+  rpc GetRepositoryInfo(
+    GetRepositoryInfoRequest
+  ) returns (GetRepositoryInfoResponse);
 }
 
 message GetRepositoryInfoRequest {
