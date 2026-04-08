@@ -3,6 +3,7 @@ module repo-stat
 go 1.25.0
 
 require (
+	github.com/google/go-github/v72 v72.0.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	google.golang.org/grpc v1.79.2
 	google.golang.org/protobuf v1.36.10
@@ -10,6 +11,7 @@ require (
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
+	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	golang.org/x/net v0.48.0 // indirect
 	golang.org/x/sys v0.39.0 // indirect

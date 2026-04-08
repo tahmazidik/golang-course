@@ -5,20 +5,44 @@ import (
 	"repo-stat/api/internal/domain"
 )
 
-type Pinger interface {
-	Ping(ctx context.Context) domain.PingStatus
-}
-
 type Ping struct {
-	pinger Pinger
+	processorPinger  ProcessorPinger
+	subscriberPinger SubscriberPinger
 }
 
-func NewPing(pinger Pinger) *Ping {
+func NewPing(processorPinger ProcessorPinger, subscriberPinger SubscriberPinger) *Ping {
 	return &Ping{
-		pinger: pinger,
+		processorPinger:  processorPinger,
+		subscriberPinger: subscriberPinger,
 	}
 }
 
-func (u *Ping) Execute(ctx context.Context) domain.PingStatus {
-	return u.pinger.Ping(ctx)
+func (u *Ping) Execute(ctx context.Context) domain.PingResult {
+	processorStatus := u.processorPinger.Ping(ctx)
+	subscriberStatus := u.subscriberPinger.Ping(ctx)
+
+	services := []domain.ServiceStatus{
+		{
+			Name:   "processor",
+			Status: processorStatus,
+		},
+		{
+			Name:   "subscriber",
+			Status: subscriberStatus,
+		},
+	}
+
+	overallStatus := domain.OverallStatusOk
+
+	for _, service := range services {
+		if service.Status == domain.PingStatusDown {
+			overallStatus = domain.OverallStatusDegraded
+			break
+		}
+	}
+
+	return domain.PingResult{
+		Status:   overallStatus,
+		Services: services,
+	}
 }
