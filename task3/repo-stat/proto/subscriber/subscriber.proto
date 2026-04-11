@@ -6,6 +6,44 @@ option go_package = "yadro.com/course/proto/gen/go/subscriber/v1;subscriberv1";
 
 service Subscriber {
   rpc Ping(PingRequest) returns (PingResponse);
+
+  rpc Subscribe(SubscribeRequest) returns (SubscribeResponse);
+
+  rpc Unsubscribe(UnsubscribeRequest) returns (UnsubscribeResponse);
+
+  rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse);
+}
+
+message Subscription {
+  int64 id = 1;
+  string owner = 2;
+  string repo = 3;
+}
+
+message SubscribeRequest {
+  string owner = 1;
+  string repo = 2;
+}
+
+message SubscribeResponse {
+  Subscription subscription = 1;
+}
+
+message UnsubscribeRequest {
+  string owner = 1;
+  string repo = 2;
+}
+
+message UnsubscribeResponse {
+
+}
+
+message ListSubscriptionsRequest {
+
+}
+
+message ListSubscriptionsResponse {
+  repeated Subscription subscriptions = 1;
 }
 
 message PingRequest {
